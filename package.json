@@ -1,6 +1,6 @@
 {
   "name": "felixriddle.risotto",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -21,6 +21,8 @@
     "cors": "^2.8.5",
     "expression": "^0.0.1",
     "felixriddle.configuration-mappings": "^1.0.8",
+    "felixriddle.good-roots-ts-api": "^1.0.22",
+    "felixriddle.my-types": "^1.0.4",
     "felixriddle.ts-app-models": "^1.0.2"
   },
   "devDependencies": {

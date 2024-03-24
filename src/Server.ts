@@ -7,15 +7,27 @@ import { Router } from "express";
 
 const numCPUs = OS.cpus().length;
 
+export interface ServerOptions {
+    allFetchUser: boolean,
+}
+
 /**
  * Create server
  */
 export default class Server {
     routesMounted = false;
     server: ServerWrapper;
+    options: ServerOptions;
     
-    constructor() {
+    /**
+     * allFetchUser: Try to fetch the user for every route
+     */
+    constructor(options: ServerOptions = {
+        allFetchUser: true,
+    }) {
         this.server = new ServerWrapper();
+        
+        this.options = options;
     }
     
     /**
@@ -68,7 +80,7 @@ export default class Server {
             throw Error("You've tried to mount routes twice!");
         }
         
-        this.server.mountRoutes(routes);
+        this.server.mountRoutes(routes, this.options);
         
         this.routesMounted = true;
         

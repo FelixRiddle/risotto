@@ -11,6 +11,8 @@ import ConfMap from "felixriddle.configuration-mappings";
 // '/srv/www/real'
 import { createPublicUserFolder } from "./user/userFolder";
 import useGeneralModels from './useGeneralModels';
+import { ServerOptions } from "./Server";
+import { publicGetUser } from "./index";
 
 /**
  * Server
@@ -45,14 +47,18 @@ export default class ServerWrapper {
     /**
      * Mount routes
      */
-    mountRoutes(routes: express.Router) {
+    mountRoutes(routes: express.Router, options: ServerOptions) {
         // Use a single instance of sequelize for every connection
         // (How it should be used, but I didn't know before 😡😡😭😭😭)
         this.app.use(useGeneralModels());
         
         // For every route, try to fetch the user
         // this.app.use(getUser, routes);
-        this.app.use(routes);
+        if(options.allFetchUser) {
+            this.app.use(publicGetUser, routes);
+        } else {
+            this.app.use(routes);
+        }
     }
     
     /**
