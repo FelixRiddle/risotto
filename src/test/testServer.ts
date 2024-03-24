@@ -15,5 +15,6 @@ export function testServerRoute() {
     });
     
     const server = new Server();
-    server.mountRoutes(router);
+    server.mountRoutes(router)
+        .startServer();
 }

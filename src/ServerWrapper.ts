@@ -2,14 +2,12 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express, { Express } from 'express';
 
-import ConfMap from "felixriddle.configuration-mappings";
+import { LocationSelection, PublicFolder } from "felixriddle.configuration-mappings";
 
-// import getUser from "../middleware/auth/getUser";
 // TODO: I'm gonna have to generalize this one and make it an application folder
 // Something like '/srv/www/auth'
 // For real estate
 // '/srv/www/real'
-import { createPublicUserFolder } from "./user/userFolder";
 import useGeneralModels from './useGeneralModels';
 import { ServerOptions } from "./Server";
 import { publicGetUser } from "./index";
@@ -30,7 +28,9 @@ export default class ServerWrapper {
      */
     async serve() {
         // Complete implementation of port(env, default and ephemeral) management
-        const locSelector = new ConfMap.LocationSelection();
+        const locSelector = new LocationSelection();
+        // What's the need to declare the app, if you can make it dynamic anyway.
+        // TODO: Fix this
         await locSelector.selectLocation(this.app, 'express-authentication');
     }
     
@@ -41,7 +41,9 @@ export default class ServerWrapper {
         await this.setupMiddleware();
         
         // Public user folder, so they upload thingies
-        createPublicUserFolder();
+        // createPublicUserFolder();
+        const publicFolder = new PublicFolder();
+        publicFolder.create();
     }
     
     /**
@@ -135,7 +137,7 @@ export default class ServerWrapper {
         // Json parser middleware
         this.app.use(express.json())
         
-        const URL = ConfMap.LocationSelection;
+        const URL = LocationSelection;
         
         // Cors whitelist
         const whitelist = [

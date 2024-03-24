@@ -1,6 +1,6 @@
 {
   "name": "felixriddle.risotto",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/cmd/index.ts",
     "test": "ts-node src/cmd/index.ts --test",
     "build": "tsup"
   },
