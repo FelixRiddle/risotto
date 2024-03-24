@@ -1,0 +1,36 @@
+{
+  "name": "felixriddle.risotto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "ts-node src/cmd/index.ts --test",
+    "build": "tsup"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "expression": "^0.0.1",
+    "felixriddle.configuration-mappings": "^1.0.8",
+    "felixriddle.ts-app-models": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/argparse": "^2.0.16",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "argparse": "^2.0.1",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.3"
+  }
+}
