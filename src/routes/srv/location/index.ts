@@ -10,11 +10,15 @@ const locationRouter = express.Router();
  * When a request is received this will tell projects to update environment variables, or any
  * configuration that requires connecting to other servers.
  */
-locationRouter.get("/update", (req, res) => {
+locationRouter.post("/update", (req, res) => {
     try {
         console.log(`GET /srv/update`);
         
-        const loc = new LocationSelection();
+        const {
+            appName
+        } = req.body;
+        
+        const loc = new LocationSelection(appName);
         loc.updateLocationUrls();
         
         return res.send({

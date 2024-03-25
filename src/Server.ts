@@ -2,6 +2,8 @@ import ServerWrapper from "./ServerWrapper";
 import cluster from 'cluster';
 import OS from 'os';
 
+import { AppNames } from "felixriddle.my-types";
+
 import { isEmailDisabled } from "./env";
 import { Router } from "express";
 
@@ -15,6 +17,7 @@ export interface ServerOptions {
  * Create server
  */
 export default class Server {
+    appName: AppNames;
     routesMounted = false;
     server: ServerWrapper;
     options: ServerOptions;
@@ -22,9 +25,10 @@ export default class Server {
     /**
      * allFetchUser: Try to fetch the user for every route
      */
-    constructor(options: ServerOptions = {
+    constructor(appName: AppNames, options: ServerOptions = {
         allFetchUser: true,
     }) {
+        this.appName = appName;
         this.server = new ServerWrapper();
         
         this.options = options;
@@ -50,6 +54,7 @@ export default class Server {
             console.log(`Number of CPUs: `, numCPUs);
             console.log(`Primary process pid: `, process.pid);
             console.log(`Is email disabled?: `, isEmailDisabled());
+            process.env.CLUSTERED = '1';
             
             // Fork processes
             for(let i = 0; i < numCPUs; i++) {
@@ -69,7 +74,7 @@ export default class Server {
         this.server.setup();
         
         // Serve
-        await this.server.serve();
+        await this.server.serve(this.appName);
     }
     
     /**

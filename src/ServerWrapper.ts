@@ -4,6 +4,7 @@ import express, { Express } from 'express';
 
 import { PublicFolder } from "felixriddle.configuration-mappings";
 import { LocationSelection } from "felixriddle.location-selection";
+import { AppNames } from "felixriddle.my-types";
 
 import { ServerOptions } from "./Server";
 import useGeneralModels from './useGeneralModels';
@@ -24,11 +25,11 @@ export default class ServerWrapper {
     /**
      * Start serving requests
      */
-    async serve() {
+    async serve(appName: AppNames) {
         // Complete implementation of port(env, default and ephemeral) management
-        const locSelector = new LocationSelection();
+        const locSelector = new LocationSelection(appName);
         // We will use any location
-        await locSelector.selectEphemeral(this.app);
+        await locSelector.selectEnvOverEphemeral(this.app);
     }
     
     /**

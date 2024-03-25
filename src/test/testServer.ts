@@ -14,7 +14,7 @@ export function testServerRoute() {
         
     });
     
-    const server = new Server();
+    const server = new Server('good-roots');
     server.mountRoutes(router)
         .startServer();
 }
@@ -29,7 +29,7 @@ export async function testCluster() {
         
     });
     
-    const server = new Server();
+    const server = new Server('good-roots');
     await server.mountRoutes(router)
         .startClusterServer();
 }
