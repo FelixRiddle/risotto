@@ -61,7 +61,7 @@ export default class ServerWrapper {
         }
         
         // Configuration route
-        this.app.use(configRoutes)
+        this.app.use(configRoutes);
     }
     
     /**
