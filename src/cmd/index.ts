@@ -11,6 +11,11 @@ parser.add_argument("--test", {
     action: "store_true"
 });
 
+parser.add_argument("--test-cluster", {
+    help: "Start a cluster server",
+    action: "store_true"
+});
+
 /**
  * Execute commands
  */

@@ -18,3 +18,18 @@ export function testServerRoute() {
     server.mountRoutes(router)
         .startServer();
 }
+
+/**
+ * Test cluster
+ */
+export async function testCluster() {
+    const router = express.Router();
+    
+    router.get("/", (req, res) => {
+        
+    });
+    
+    const server = new Server();
+    await server.mountRoutes(router)
+        .startClusterServer();
+}

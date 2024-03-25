@@ -2,15 +2,13 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express, { Express } from 'express';
 
-import { LocationSelection, PublicFolder } from "felixriddle.configuration-mappings";
+import { PublicFolder } from "felixriddle.configuration-mappings";
+import { LocationSelection } from "felixriddle.location-selection";
 
-// TODO: I'm gonna have to generalize this one and make it an application folder
-// Something like '/srv/www/auth'
-// For real estate
-// '/srv/www/real'
-import useGeneralModels from './useGeneralModels';
 import { ServerOptions } from "./Server";
+import useGeneralModels from './useGeneralModels';
 import { publicGetUser } from "./index";
+import configRoutes from "./routes/index";
 
 /**
  * Server
@@ -29,9 +27,8 @@ export default class ServerWrapper {
     async serve() {
         // Complete implementation of port(env, default and ephemeral) management
         const locSelector = new LocationSelection();
-        // What's the need to declare the app, if you can make it dynamic anyway.
-        // TODO: Fix this
-        await locSelector.selectLocation(this.app, 'express-authentication');
+        // We will use any location
+        await locSelector.selectEphemeral(this.app);
     }
     
     /**
@@ -61,6 +58,9 @@ export default class ServerWrapper {
         } else {
             this.app.use(routes);
         }
+        
+        // Configuration route
+        this.app.use(configRoutes)
     }
     
     /**
@@ -157,7 +157,8 @@ export default class ServerWrapper {
         // And another one
         const nextFrontendUrl = process.env.GOOD_ROOTS_NEXT_FRONTEND_URL;
         if(nextFrontendUrl) whitelist.push(nextFrontendUrl);
-        else console.log(`Warning: Next frontend url not found!!!`);
+        // Forget it, when it causes trouble I'll make a whole library for it hehe
+        // else console.log(`Warning: Next frontend url not found!!!`);
         
         this.app.use(cors({
             credentials: true,
