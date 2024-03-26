@@ -24,20 +24,6 @@ Your app will not be able to use '/srv' because it's reserved for server configu
 - Users folder
 - Protection
 - Server clustering
-- When clustering use env port
 
-If 'PORT' is set, the server will use it.
 
-# Environment variables
 
-This server will use the following environment variables.
-
-When clustering
-
-```bash
-# If clustered
-CLUSTERED=1
-# To prevent clusters from using different ports
-# It will use some random port above 40000
-PORT=40000
-```

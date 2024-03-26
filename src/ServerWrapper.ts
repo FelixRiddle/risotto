@@ -29,7 +29,7 @@ export default class ServerWrapper {
         // Complete implementation of port(env, default and ephemeral) management
         const locSelector = new LocationSelection(appName);
         // We will use any location
-        await locSelector.selectEnvOverEphemeral(this.app);
+        await locSelector.selectConfigOverEphemeral(this.app);
     }
     
     /**

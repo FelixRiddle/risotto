@@ -54,7 +54,6 @@ export default class Server {
             console.log(`Number of CPUs: `, numCPUs);
             console.log(`Primary process pid: `, process.pid);
             console.log(`Is email disabled?: `, isEmailDisabled());
-            process.env.CLUSTERED = '1';
             
             // Fork processes
             for(let i = 0; i < numCPUs; i++) {
