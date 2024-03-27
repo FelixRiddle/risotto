@@ -17,12 +17,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "expression": "^0.0.1",
+    "express": "^4.19.2",
     "felixriddle.configuration-mappings": "^1.0.8",
     "felixriddle.good-roots-ts-api": "^1.0.22",
-    "felixriddle.location-selection": "^1.0.1",
+    "felixriddle.location-selection": "^1.0.5",
     "felixriddle.my-types": "^1.0.4",
     "felixriddle.ts-app-models": "^1.0.2"
   },

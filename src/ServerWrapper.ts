@@ -1,3 +1,4 @@
+import bodyParser from "body-parser";
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express, { Express } from 'express';
@@ -26,8 +27,17 @@ export default class ServerWrapper {
      * Start serving requests
      */
     async serve(appName: AppNames) {
+        console.log(`Starting to serve`);
         // Complete implementation of port(env, default and ephemeral) management
         const locSelector = new LocationSelection(appName);
+        
+        try {
+            // This updates server environment variables
+            locSelector.updateLocationUrls();
+        } catch(err) {
+            // Ignore
+        }
+        
         // We will use any location
         await locSelector.selectConfigOverEphemeral(this.app);
     }
@@ -35,8 +45,8 @@ export default class ServerWrapper {
     /**
      * Setup all
      */
-    async setup() {
-        await this.setupMiddleware();
+    setup() {
+        this.setupMiddleware();
         
         // Public user folder, so they upload thingies
         // createPublicUserFolder();
@@ -48,8 +58,8 @@ export default class ServerWrapper {
      * Mount routes
      */
     mountRoutes(routes: express.Router, options: ServerOptions) {
+        console.log(`Mount routes`);
         // Use a single instance of sequelize for every connection
-        // (How it should be used, but I didn't know before 😡😡😭😭😭)
         this.app.use(useGeneralModels());
         
         // For every route, try to fetch the user
@@ -127,16 +137,20 @@ export default class ServerWrapper {
     /**
      * Setup some things
      */
-    async setupMiddleware() {
+    setupMiddleware() {
         this.enableCsp();
         
-        // I don't know
-        this.app.use(express.urlencoded({
+        // Parse application/x-www-form-urlencoded
+        this.app.use(bodyParser.urlencoded({
             extended: true,
         }));
         
-        // Json parser middleware
-        this.app.use(express.json())
+        // Parse application/json
+        this.app.use(bodyParser.json())
+        console.log(`Json middleware parser setup`);
+        
+        // // Json parser middleware
+        // this.app.use(express.json());
         
         const URL = LocationSelection;
         
@@ -169,6 +183,7 @@ export default class ServerWrapper {
         }));
         
         // Enable cookie parser
-        this.app.use(cookieParser());
+        // this.app.use(cookieParser());
+        console.log(`Middleware setup`);
     }
 };

@@ -21,6 +21,17 @@ parser.add_argument("--test-cluster-2", {
     action: "store_true"
 });
 
+// Test open single threaded servers
+parser.add_argument("--open-single-authentication", {
+    help: "Opens a single threaded authentication app",
+    action: "store_true"
+});
+
+parser.add_argument("--open-single-good-roots", {
+    help: "Opens a single threaded good roots app",
+    action: "store_true"
+});
+
 /**
  * Execute commands
  */

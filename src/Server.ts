@@ -1,11 +1,11 @@
-import ServerWrapper from "./ServerWrapper";
+import { Router } from "express";
 import cluster from 'cluster';
 import OS from 'os';
 
 import { AppNames } from "felixriddle.my-types";
 
 import { isEmailDisabled } from "./env";
-import { Router } from "express";
+import ServerWrapper from "./ServerWrapper";
 
 const numCPUs = OS.cpus().length;
 
@@ -69,9 +69,6 @@ export default class Server {
      * Start single server
      */
     async startServer() {
-        // Setup middleware, mount routes
-        this.server.setup();
-        
         // Serve
         await this.server.serve(this.appName);
     }
@@ -80,6 +77,10 @@ export default class Server {
      * Set server routes
      */
     mountRoutes(routes: Router) {
+        // This has to run before anything else
+        // Setup middleware, mount routes
+        this.server.setup();
+        
         if(this.routesMounted) {
             throw Error("You've tried to mount routes twice!");
         }
