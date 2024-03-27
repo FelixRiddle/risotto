@@ -16,9 +16,10 @@ I can still however
 
 - [ ] Wrap good roots api
     - [ ] On error do the following actions
-        - [ ] Update locations
-        - [ ] Try again
-        - [ ] On failure again then response to the request with an internal error(500).
+        - [ ] Check error is ECONNREFUSED
+            - [ ] Update locations
+            - [ ] Try again
+            - [ ] On failure again then response to the request with an internal error(500).
 
 However this has to be done not here but in the app that uses this library
 
