@@ -1,9 +1,8 @@
 import bodyParser from "body-parser";
-import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express, { Express } from 'express';
 
-import { PublicFolder } from "felixriddle.configuration-mappings";
+import { SERVERS_DEFAULT_LOCATION, PublicFolder } from "felixriddle.configuration-mappings";
 import { LocationSelection } from "felixriddle.location-selection";
 import { AppNames } from "felixriddle.my-types";
 
@@ -156,14 +155,15 @@ export default class ServerWrapper {
         
         // Cors whitelist
         const whitelist = [
-            // process.env.ORIGIN,
-            // SERVER_URL_MAPPINGS.AUTHENTICATION,
-            // SERVER_URL_MAPPINGS.BACKDOOR_SERVER_ACCESS,
-            // SERVER_URL_MAPPINGS.GOOD_ROOTS,
-            // SERVER_URL_MAPPINGS.REAL_ESTATE,
+            SERVERS_DEFAULT_LOCATION['backdoor-server-access'],
+            SERVERS_DEFAULT_LOCATION['express-authentication'],
+            SERVERS_DEFAULT_LOCATION['express-real-estate'],
+            SERVERS_DEFAULT_LOCATION['good-roots'],
+            
             URL.expressAuthentication(),
             URL.backdoorServerAccess(),
             URL.realEstate(),
+            
             "http://localhost:3000",
             "http://localhost:3003",
             "http://localhost:3004"
