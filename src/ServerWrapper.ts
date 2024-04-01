@@ -4,7 +4,7 @@ import express, { Express } from 'express';
 
 import { SERVERS_DEFAULT_LOCATION, PublicFolder } from "felixriddle.configuration-mappings";
 import { LocationSelection } from "felixriddle.location-selection";
-import { AppNames } from "felixriddle.my-types";
+import { AppNames, ServersLocation } from "felixriddle.my-types";
 
 import { ServerOptions } from "./Server";
 import useGeneralModels from './useGeneralModels';
@@ -39,6 +39,17 @@ export default class ServerWrapper {
         
         // We will use any location
         await locSelector.selectConfigOverEphemeral(this.app);
+    }
+    
+    /**
+     * Serve on default port
+     */
+    async serveDefaultPort(appName: AppNames) {
+        const serverLocation: string = SERVERS_DEFAULT_LOCATION[appName as keyof ServersLocation];
+        const location = new URL(serverLocation);
+        this.app.listen(location.port, () => {
+            console.log(`Serving at ${serverLocation}`);
+        });
     }
     
     /**

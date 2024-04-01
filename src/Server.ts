@@ -74,6 +74,13 @@ export default class Server {
     }
     
     /**
+     * Start single server on default port
+     */
+    async startServerDefaultPort() {
+        await this.server.serveDefaultPort(this.appName);
+    }
+    
+    /**
      * Set server routes
      */
     mountRoutes(routes: Router) {

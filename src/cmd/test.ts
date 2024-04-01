@@ -6,12 +6,25 @@ import { testCluster, testCluster2 } from "../test/testServer";
 /**
  * Test open single authentication app server
  */
-export async function singleAuthenticationApp() {
+export async function singleAuthenticationDefault() {
     const router = express.Router();
     
     router.get("/", (req, res) => {
         
     });
+    
+    const server = new Server('express-authentication');
+    await server.mountRoutes(router)
+        .startServerDefaultPort();
+}
+
+/**
+ * Test open single authentication app server
+ */
+export async function singleAuthenticationApp() {
+    const router = express.Router();
+    
+    router.get("/", (req, res) => { });
     
     const server = new Server('express-authentication');
     await server.mountRoutes(router)
@@ -44,6 +57,11 @@ export default async function executeTests(args: any) {
     
     if(args.open_single_good_roots) {
         await singleGoodRootsApp();
+    }
+    
+    // Open on default port
+    if(args.open_single_authentication_default) {
+        await singleAuthenticationDefault();
     }
     
     // --- Multi threaded servers ---

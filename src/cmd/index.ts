@@ -32,6 +32,11 @@ parser.add_argument("--open-single-good-roots", {
     action: "store_true"
 });
 
+parser.add_argument("--open-single-authentication-default", {
+    help: "Open single threaded server of authentication server on default port",
+    action: "store_true"
+});
+
 /**
  * Execute commands
  */
