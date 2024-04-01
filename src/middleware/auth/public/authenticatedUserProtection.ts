@@ -20,7 +20,7 @@ export default async (req: Request, res: Response, next: any) =>  {
         // Get and rename token
         let { _token: token } = req.cookies;
         
-        // If there's no token, send the user to the login page
+        // If there's no token, return error
         if(!token) {
             if(PROTECT_ROUTE_DEBUG) {
                 console.log(`No token found`);
@@ -66,10 +66,10 @@ export default async (req: Request, res: Response, next: any) =>  {
             console.error(err);
         }
         
-        return res.send({
+        return res.status(401).send({
             messages: [{
                 error: true,
-                message: "Unknown error"
+                message: "Authentication error"
             }]
         });
     }

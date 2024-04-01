@@ -1,6 +1,7 @@
 import bodyParser from "body-parser";
 import cors from 'cors';
 import express, { Express } from 'express';
+import cookieParser from "cookie-parser";
 
 import { SERVERS_DEFAULT_LOCATION, PublicFolder } from "felixriddle.configuration-mappings";
 import { LocationSelection } from "felixriddle.location-selection";
@@ -159,8 +160,8 @@ export default class ServerWrapper {
         this.app.use(bodyParser.json())
         console.log(`Json middleware parser setup`);
         
-        // // Json parser middleware
-        // this.app.use(express.json());
+        // Enable cookie parser
+        this.app.use(cookieParser());
         
         const URL = LocationSelection;
         
