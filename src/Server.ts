@@ -34,6 +34,7 @@ export default class Server {
         this.options = options;
     }
     
+    // --- Start server ---
     /**
      * Start cluster server
      */
@@ -80,6 +81,7 @@ export default class Server {
         await this.server.serveDefaultPort(this.appName);
     }
     
+    // --- Middleware and routes ---
     /**
      * Set server routes
      */
